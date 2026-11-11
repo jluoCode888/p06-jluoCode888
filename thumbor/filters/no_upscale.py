@@ -17,6 +17,12 @@ class Filter(BaseFilter):
 
     @filter_method()
     async def no_upscale(self):
+        # keep the requested canvas so fill() can still draw it
+        self.context.request.no_upscale_canvas = (
+            self.context.request.width,
+            self.context.request.height,
+        )
+
         image_size = self.context.request.engine.size
         orientation = self.context.request.engine.get_orientation()
 
